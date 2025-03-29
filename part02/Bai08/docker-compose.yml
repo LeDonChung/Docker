@@ -1,0 +1,25 @@
+version: '3'
+services:
+  app:
+    build: ./my-node
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    container_name: node-app
+
+  db:
+    image: mysql:8.0
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: mydb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+    ports:
+      - "3309:3306"
+    volumes:
+      - mysql-data:/var/lib/mysql
+    container_name: mysql-db
+
+volumes:
+  mysql-data:
